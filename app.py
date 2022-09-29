@@ -91,6 +91,11 @@ def registro():
     return render_template('registro.html')
 
 
+@app.route('/verificacion')
+def verificar():
+    return render_template('verificacion.html')
+
+
 @app.route('/mensajes')
 def mensajes():
     return render_template('mensajes.html')
