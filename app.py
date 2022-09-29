@@ -1,4 +1,3 @@
-
 from datetime import datetime
 from tkinter.messagebox import RETRY
 from flask import Flask, render_template, url_for, request, redirect, flash
