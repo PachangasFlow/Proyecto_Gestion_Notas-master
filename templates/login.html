@@ -20,7 +20,7 @@
                 <div class="text-center">
                   <h1 class="h4 text-gray-900 mb-4">Bienvenido</h1>
                 </div>
-                <form class="user" action="/menu" method="post">
+                <form class="user" action="/validarlogin" method="post">
                   <div class="form-group mb-3">
                     <input type="email" class="form-control form-control-user" name="username"
                       aria-describedby="emailHelp" placeholder="Ingrese el Usuario">
@@ -50,6 +50,19 @@
                 <div class="text-center">
                   <a class="small" href="{{ url_for('registro') }}">Registrarse</a>
                 </div>
+                {% with messages = get_flashed_messages() %}
+                {% if messages %}
+                {% for message in messages %}
+
+                <div class="alert alert-dismissible alert-info">
+                  <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
+                  <h4 class="alert-heading">Ingreso al sistema</h4>
+                  <p class="mb-0">{{message}}</a>.</p>
+                </div>
+
+                {% endfor %}
+                {% endif %}
+                {% endwith %}
                 <!--
                     <div class="text-center">
                       <a class="small" href="#">Olvido su Contraseña?</a>
