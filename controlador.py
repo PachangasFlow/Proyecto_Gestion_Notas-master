@@ -26,7 +26,7 @@ def insertar_usuarios(nombre, apellido, usuario, passwd):
         cursor = db.cursor()
         sql = "INSERT INTO usuarios(nombre,apellido,usuario,passw,cod_verificacion,verificado,id_rol) values(?,?,?,?,?,?,?)"
         cursor.execute(sql, [nombre, apellido, usuario,
-                            passwd, cod_ver, False, 1])
+                            passwd, cod_ver, 0, 1])
         db.commit()
         envioemail.enviar_email(usuario, cod_ver)
         return True
@@ -53,5 +53,17 @@ def validar_usuarios(username):
             'rol':resultado[7]
         }]
         return usuario
+    except:
+        return False
+
+
+def activar_usuario(username, codver):
+    try:
+        db = conectar_db()
+        cursor = db.cursor()
+        sql = "update usuarios set verificado=1 where usuario=? and cod_verificacion =?"
+        cursor.execute(sql, [username, codver])
+        db.commit()
+        return True
     except:
         return False

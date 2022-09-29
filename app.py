@@ -14,6 +14,19 @@ app.secret_key = 'mi clave de secreta'+str(datetime.now)
 #########Recuperar la informacion desde los formularios#####
 ###Recuperar y Almancenar los Registros de usuario######################
 
+@app.route('/activar', methods=['POST'])
+def activar_cuenta():
+    datos = request.form
+    username = datos['username']
+    codver = datos['codverificacion']
+    resultado = controlador.activar_usuario(username,codver)
+    if resultado:
+        flash('Cuenta activada satisfactoriamente')
+    else:
+        flash('Error en activación')
+    
+    return redirect(url_for('verificar'))
+
 
 @app.route('/validarlogin', methods=['POST'])
 def val_user():
@@ -28,7 +41,8 @@ def val_user():
             flash('error al ingresar')
             return redirect(url_for('login'))
         else:
-            if (resultado[0]['verificado'] == "Y"):
+            
+            if (resultado[0]['verificado'] == 1):
 
                 if check_password_hash(resultado[0]['passwd'], passwd):
                     return redirect(url_for('menu'))
